@@ -1,30 +1,76 @@
+import {TokenService} from '@loopback/authentication';
+import {MyUserService, TokenServiceBindings, UserServiceBindings} from '@loopback/authentication-jwt';
+import {inject} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
+import {SecurityBindings, UserProfile} from '@loopback/security';
 import {Users} from '../models';
 import {UsersRepository} from '../repositories';
 
 export class UsersController {
   constructor(
+    @inject(TokenServiceBindings.TOKEN_SERVICE)
+    public jwtService: TokenService,
+    @inject(UserServiceBindings.USER_SERVICE)
+    public userService: MyUserService,
+    @inject(SecurityBindings.USER, {optional: true})
+    public user: UserProfile,
+    // @repository(UsersRepository) protected userRepository: UsersRepository,
     @repository(UsersRepository)
-    public usersRepository : UsersRepository,
-  ) {}
+    public usersRepository: UsersRepository,
+  ) { }
+
+
+  @post('/users/login', {
+    responses: {
+      '200': {
+        description: 'Token',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                token: {
+                  type: 'string',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+  async login(
+    @requestBody({
+      description: 'The input of login function',
+      required: true,
+      content: {
+        'application/json': {schema: getModelSchemaRef(Users)},
+      },
+    }) users: Users,
+  ): Promise<{token: string}> {
+    // ensure the user exists, and the password is correct
+    //  const user = await this.userService.verifyCredentials(credentials);
+    // convert a User object into a UserProfile object (reduced set of properties)
+    const userProfile: any = {id: 1, name: "shrushti", mobileNo: "9595959595"}; // this.userService.convertToUserProfile(user);
+
+    // create a JSON Web Token based on the user profile
+    const token = await this.jwtService.generateToken(userProfile);
+    return {token};
+  }
+
+
 
   @post('/users')
   @response(200, {
@@ -37,7 +83,7 @@ export class UsersController {
         'application/json': {
           schema: getModelSchemaRef(Users, {
             title: 'NewUsers',
-            
+
           }),
         },
       },
