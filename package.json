@@ -54,7 +54,7 @@
         "@loopback/authentication": "^8.0.0",
         "@loopback/authentication-jwt": "^0.10.0",
         "@loopback/boot": "^3.4.4",
-        "@loopback/cli": "^2.22.1",
+        "@loopback/cli": "^2.6.0",
         "@loopback/core": "^2.18.0",
         "@loopback/repository": "^3.7.3",
         "@loopback/rest": "^10.1.0",
