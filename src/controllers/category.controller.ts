@@ -1,4 +1,3 @@
-import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -14,7 +13,7 @@ import {
 } from '@loopback/rest';
 import {Category} from '../models';
 import {CategoryRepository} from '../repositories';
-@authenticate('jwt')
+//@authenticate('jwt')
 export class CategoryController {
   constructor(
     @repository(CategoryRepository)
