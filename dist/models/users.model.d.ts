@@ -3,6 +3,7 @@ export declare class Users extends Entity {
     id?: number;
     name: string;
     mobileNo?: string;
+    pincode?: string;
     address?: string;
     password: string;
     constructor(data?: Partial<Users>);

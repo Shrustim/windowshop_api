@@ -33,6 +33,13 @@ let Users = class Users extends repository_1.Entity {
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
         type: 'string',
+        default: 0,
+    }),
+    (0, tslib_1.__metadata)("design:type", String)
+], Users.prototype, "pincode", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'string',
     }),
     (0, tslib_1.__metadata)("design:type", String)
 ], Users.prototype, "address", void 0);

@@ -8,6 +8,11 @@ export class Orderproduct extends Entity {
     generated: true,
   })
   id?: number;
+  
+ @property({
+    type: 'number',
+  })
+  orderId?: number;
 
   @property({
     type: 'number',

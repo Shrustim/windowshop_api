@@ -23,6 +23,12 @@ export class Users extends Entity {
 
   @property({
     type: 'string',
+    default: 0,
+  })
+  pincode?: string;
+
+  @property({
+    type: 'string',
   })
   address?: string;
 

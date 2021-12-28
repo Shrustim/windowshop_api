@@ -21,6 +21,12 @@ let Orderproduct = class Orderproduct extends repository_1.Entity {
         type: 'number',
     }),
     (0, tslib_1.__metadata)("design:type", Number)
+], Orderproduct.prototype, "orderId", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'number',
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
 ], Orderproduct.prototype, "userId", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({

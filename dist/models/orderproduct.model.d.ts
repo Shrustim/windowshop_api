@@ -1,6 +1,7 @@
 import { Entity } from '@loopback/repository';
 export declare class Orderproduct extends Entity {
     id?: number;
+    orderId?: number;
     userId?: number;
     productId: number;
     totalPrice: number;
