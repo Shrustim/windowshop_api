@@ -32,7 +32,12 @@ export class Order extends Entity {
     required: true,
   })
   address: string;
-
+  
+  @property({
+    type: 'number',
+    required: true,
+  })
+  pincode: number;
 
   constructor(data?: Partial<Order>) {
     super(data);

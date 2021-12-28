@@ -44,6 +44,13 @@ let Order = class Order extends repository_1.Entity {
     }),
     (0, tslib_1.__metadata)("design:type", String)
 ], Order.prototype, "address", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'number',
+        required: true,
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], Order.prototype, "pincode", void 0);
 Order = (0, tslib_1.__decorate)([
     (0, repository_1.model)(),
     (0, tslib_1.__metadata)("design:paramtypes", [Object])
