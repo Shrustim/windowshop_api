@@ -147,4 +147,48 @@ export class OrderController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.orderRepository.deleteById(id);
   }
+
+   @get('/ordersById/{id}')
+  @response(200, {
+    description: 'Array of Order model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Order, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async ordersById(
+     @param.path.number('id') id: number,
+    @param.filter(Order) filter?: Filter<Order>,
+  ): Promise<Order> {
+     const result:any =  await this.orderRepository.execute('SELECT `Orderproduct`.*,`Product`.`productName` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id WHERE `Orderproduct`.`orderId`="'+id+'"');
+    return result;
+  }
+
+    @get('/ordersList/{id}')
+  @response(200, {
+    description: 'Array of Order model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Order, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async ordersList(
+    @param.path.number('id') id: number,
+   @param.filter(Order) filter?: Filter<Order>,
+  ): Promise<void> {
+    const result:any =  await this.orderRepository.execute('SELECT `Order`.*,Users.name FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id WHERE `Order`.`userId`="'+id+'"');
+    return result;
+  }
+
+
+
+
 }

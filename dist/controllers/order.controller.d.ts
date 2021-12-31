@@ -12,4 +12,6 @@ export declare class OrderController {
     updateById(id: number, order: Order): Promise<void>;
     replaceById(id: number, order: Order): Promise<void>;
     deleteById(id: number): Promise<void>;
+    ordersById(id: number, filter?: Filter<Order>): Promise<Order>;
+    ordersList(id: number, filter?: Filter<Order>): Promise<void>;
 }

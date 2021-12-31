@@ -34,6 +34,14 @@ let OrderController = class OrderController {
     async deleteById(id) {
         await this.orderRepository.deleteById(id);
     }
+    async ordersById(id, filter) {
+        const result = await this.orderRepository.execute('SELECT `Orderproduct`.*,`Product`.`productName` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id WHERE `Orderproduct`.`orderId`="' + id + '"');
+        return result;
+    }
+    async ordersList(id, filter) {
+        const result = await this.orderRepository.execute('SELECT `Order`.*,Users.name FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id WHERE `Order`.`userId`="' + id + '"');
+        return result;
+    }
 };
 (0, tslib_1.__decorate)([
     (0, rest_1.post)('/orders'),
@@ -155,6 +163,44 @@ let OrderController = class OrderController {
     (0, tslib_1.__metadata)("design:paramtypes", [Number]),
     (0, tslib_1.__metadata)("design:returntype", Promise)
 ], OrderController.prototype, "deleteById", null);
+(0, tslib_1.__decorate)([
+    (0, rest_1.get)('/ordersById/{id}'),
+    (0, rest_1.response)(200, {
+        description: 'Array of Order model instances',
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'array',
+                    items: (0, rest_1.getModelSchemaRef)(models_1.Order, { includeRelations: true }),
+                },
+            },
+        },
+    }),
+    (0, tslib_1.__param)(0, rest_1.param.path.number('id')),
+    (0, tslib_1.__param)(1, rest_1.param.filter(models_1.Order)),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", [Number, Object]),
+    (0, tslib_1.__metadata)("design:returntype", Promise)
+], OrderController.prototype, "ordersById", null);
+(0, tslib_1.__decorate)([
+    (0, rest_1.get)('/ordersList/{id}'),
+    (0, rest_1.response)(200, {
+        description: 'Array of Order model instances',
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'array',
+                    items: (0, rest_1.getModelSchemaRef)(models_1.Order, { includeRelations: true }),
+                },
+            },
+        },
+    }),
+    (0, tslib_1.__param)(0, rest_1.param.path.number('id')),
+    (0, tslib_1.__param)(1, rest_1.param.filter(models_1.Order)),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", [Number, Object]),
+    (0, tslib_1.__metadata)("design:returntype", Promise)
+], OrderController.prototype, "ordersList", null);
 OrderController = (0, tslib_1.__decorate)([
     (0, tslib_1.__param)(0, (0, repository_1.repository)(repositories_1.OrderRepository)),
     (0, tslib_1.__metadata)("design:paramtypes", [repositories_1.OrderRepository])
