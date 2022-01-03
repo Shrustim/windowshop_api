@@ -35,7 +35,7 @@ let OrderController = class OrderController {
         await this.orderRepository.deleteById(id);
     }
     async ordersById(id, filter) {
-        const result = await this.orderRepository.execute('SELECT `Orderproduct`.*,`Product`.`productName` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id WHERE `Orderproduct`.`orderId`="' + id + '"');
+        const result = await this.orderRepository.execute('SELECT `Orderproduct`.*,`Product`.`productName`,`Product`.`imageone` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id WHERE `Orderproduct`.`orderId`="' + id + '"');
         return result;
     }
     async ordersList(id, filter) {
