@@ -39,6 +39,12 @@ export class Order extends Entity {
   })
   pincode: number;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  orderDate: string;
+
   constructor(data?: Partial<Order>) {
     super(data);
   }

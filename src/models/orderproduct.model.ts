@@ -44,6 +44,13 @@ export class Orderproduct extends Entity {
   price: number;
 
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  orderDate: string;
+
+
   constructor(data?: Partial<Orderproduct>) {
     super(data);
   }
