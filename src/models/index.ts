@@ -3,3 +3,6 @@ export * from './category.model';
 export * from './product.model';
 export * from './order.model';
 export * from './orderproduct.model';
+export * from './unit-master.model';
+export * from './pincode.model';
+export * from './productprice.model';

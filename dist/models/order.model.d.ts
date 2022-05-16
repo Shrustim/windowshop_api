@@ -5,8 +5,11 @@ export declare class Order extends Entity {
     totalPrice: number;
     qty: number;
     address: string;
-    pincode: number;
+    pincodeId: number;
     orderDate: string;
+    is_active?: number;
+    created?: string;
+    updated?: string;
     constructor(data?: Partial<Order>);
 }
 export interface OrderRelations {

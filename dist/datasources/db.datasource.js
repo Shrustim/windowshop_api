@@ -13,14 +13,22 @@ const config = {
     // user: 'sql5449233',
     // password: 'vY5PnXUB7X',
     // database: 'sql5449233'
+    // name: 'db',
+    // connector: 'mysql',
+    // url: '',
+    // host: 'www.db4free.net',
+    // port: 3306,
+    // user: 'clgpro_decore',
+    // password: 'clgProDecore@Akki',
+    // database: 'clgprodecoredb'
     name: 'db',
     connector: 'mysql',
     url: '',
-    host: 'www.db4free.net',
+    host: 'localhost',
     port: 3306,
-    user: 'clgpro_decore',
-    password: 'clgProDecore@Akki',
-    database: 'clgprodecoredb'
+    user: 'root',
+    password: '',
+    database: 'loopback4_bekery_api'
 };
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down

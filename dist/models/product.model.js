@@ -29,26 +29,7 @@ let Product = class Product extends repository_1.Entity {
         required: true,
     }),
     (0, tslib_1.__metadata)("design:type", Number)
-], Product.prototype, "price", void 0);
-(0, tslib_1.__decorate)([
-    (0, repository_1.property)({
-        type: 'number',
-        required: true,
-    }),
-    (0, tslib_1.__metadata)("design:type", Number)
 ], Product.prototype, "categoryId", void 0);
-(0, tslib_1.__decorate)([
-    (0, repository_1.property)({
-        type: 'number',
-    }),
-    (0, tslib_1.__metadata)("design:type", Number)
-], Product.prototype, "height", void 0);
-(0, tslib_1.__decorate)([
-    (0, repository_1.property)({
-        type: 'number',
-    }),
-    (0, tslib_1.__metadata)("design:type", Number)
-], Product.prototype, "weight", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
         type: 'string',
@@ -73,6 +54,30 @@ let Product = class Product extends repository_1.Entity {
     }),
     (0, tslib_1.__metadata)("design:type", String)
 ], Product.prototype, "imagethree", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'string',
+    }),
+    (0, tslib_1.__metadata)("design:type", String)
+], Product.prototype, "imagefour", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'number',
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], Product.prototype, "is_active", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'string',
+    }),
+    (0, tslib_1.__metadata)("design:type", String)
+], Product.prototype, "created", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'string',
+    }),
+    (0, tslib_1.__metadata)("design:type", String)
+], Product.prototype, "updated", void 0);
 Product = (0, tslib_1.__decorate)([
     (0, repository_1.model)(),
     (0, tslib_1.__metadata)("design:paramtypes", [Object])

@@ -26,6 +26,21 @@ export class Category extends Entity {
   })
   description?: string;
 
+  @property({
+    type: 'number',
+  })
+  is_active?: number;
+
+  @property({
+    type: 'string',
+  })
+  created?: string;
+
+  @property({
+    type: 'string',
+  })
+  updated?: string;
+
 
   constructor(data?: Partial<Category>) {
     super(data);

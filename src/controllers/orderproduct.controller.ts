@@ -1,30 +1,25 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Orderproduct} from '../models';
 import {OrderproductRepository} from '../repositories';
-
+@authenticate('jwt')
 export class OrderproductController {
   constructor(
     @repository(OrderproductRepository)
-    public orderproductRepository : OrderproductRepository,
-  ) {}
+    public orderproductRepository: OrderproductRepository,
+  ) { }
 
   @post('/orderproducts')
   @response(200, {
@@ -37,7 +32,7 @@ export class OrderproductController {
         'application/json': {
           schema: getModelSchemaRef(Orderproduct, {
             title: 'NewOrderproduct',
-            
+
           }),
         },
       },

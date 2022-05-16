@@ -22,10 +22,9 @@ export class Users extends Entity {
   mobileNo?: string;
 
   @property({
-    type: 'string',
-    default: 0,
+    type: 'number'
   })
-  pincode?: string;
+  pincodeId?: number;
 
   @property({
     type: 'string',
@@ -38,6 +37,20 @@ export class Users extends Entity {
   })
   password: string;
 
+  @property({
+    type: 'number',
+  })
+  is_active?: number;
+
+  @property({
+    type: 'string',
+  })
+  created?: string;
+
+  @property({
+    type: 'string',
+  })
+  updated?: string;
 
   constructor(data?: Partial<Users>) {
     super(data);

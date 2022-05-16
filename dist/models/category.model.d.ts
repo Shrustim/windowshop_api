@@ -4,6 +4,9 @@ export declare class Category extends Entity {
     categoryName: string;
     image: string;
     description?: string;
+    is_active?: number;
+    created?: string;
+    updated?: string;
     constructor(data?: Partial<Category>);
 }
 export interface CategoryRelations {

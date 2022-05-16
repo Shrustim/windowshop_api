@@ -8,8 +8,8 @@ export class Orderproduct extends Entity {
     generated: true,
   })
   id?: number;
-  
- @property({
+
+  @property({
     type: 'number',
   })
   orderId?: number;
@@ -43,13 +43,30 @@ export class Orderproduct extends Entity {
   })
   price: number;
 
+  @property({
+    type: 'number'
+  })
+  unitId: number;
+
+  @property({
+    type: 'number'
+  })
+  discount: number;
+
+  @property({
+    type: 'number',
+  })
+  is_active?: number;
 
   @property({
     type: 'string',
-    required: true,
   })
-  orderDate: string;
+  created?: string;
 
+  @property({
+    type: 'string',
+  })
+  updated?: string;
 
   constructor(data?: Partial<Orderproduct>) {
     super(data);

@@ -19,23 +19,8 @@ export class Product extends Entity {
     type: 'number',
     required: true,
   })
-  price: number;
-
-  @property({
-    type: 'number',
-    required: true,
-  })
   categoryId: number;
 
-  @property({
-    type: 'number',
-  })
-  height?: number;
-
-  @property({
-    type: 'number',
-  })
-  weight?: number;
 
   @property({
     type: 'string',
@@ -56,6 +41,26 @@ export class Product extends Entity {
     type: 'string',
   })
   imagethree?: string;
+
+  @property({
+    type: 'string',
+  })
+  imagefour?: string;
+
+  @property({
+    type: 'number',
+  })
+  is_active?: number;
+
+  @property({
+    type: 'string',
+  })
+  created?: string;
+
+  @property({
+    type: 'string',
+  })
+  updated?: string;
 
 
   constructor(data?: Partial<Product>) {

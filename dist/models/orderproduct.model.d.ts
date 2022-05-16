@@ -7,7 +7,11 @@ export declare class Orderproduct extends Entity {
     totalPrice: number;
     qty: number;
     price: number;
-    orderDate: string;
+    unitId: number;
+    discount: number;
+    is_active?: number;
+    created?: string;
+    updated?: string;
     constructor(data?: Partial<Orderproduct>);
 }
 export interface OrderproductRelations {

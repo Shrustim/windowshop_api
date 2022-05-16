@@ -1,30 +1,25 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Order} from '../models';
 import {OrderRepository} from '../repositories';
-
+@authenticate('jwt')
 export class OrderController {
   constructor(
     @repository(OrderRepository)
-    public orderRepository : OrderRepository,
-  ) {}
+    public orderRepository: OrderRepository,
+  ) { }
 
   @post('/orders')
   @response(200, {
@@ -37,7 +32,7 @@ export class OrderController {
         'application/json': {
           schema: getModelSchemaRef(Order, {
             title: 'NewOrder',
-            
+
           }),
         },
       },
@@ -148,7 +143,7 @@ export class OrderController {
     await this.orderRepository.deleteById(id);
   }
 
-   @get('/ordersById/{id}')
+  @get('/ordersById/{id}')
   @response(200, {
     description: 'Array of Order model instances',
     content: {
@@ -161,14 +156,14 @@ export class OrderController {
     },
   })
   async ordersById(
-     @param.path.number('id') id: number,
+    @param.path.number('id') id: number,
     @param.filter(Order) filter?: Filter<Order>,
   ): Promise<Order> {
-     const result:any =  await this.orderRepository.execute('SELECT `Orderproduct`.*,`Product`.`productName`,`Product`.`imageone` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id WHERE `Orderproduct`.`orderId`="'+id+'"');
+    const result: any = await this.orderRepository.execute('SELECT `Orderproduct`.*,`Product`.`productName`,`Product`.`imageone` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id WHERE `Orderproduct`.`orderId`="' + id + '"');
     return result;
   }
 
-    @get('/ordersList/{id}')
+  @get('/ordersList/{id}')
   @response(200, {
     description: 'Array of Order model instances',
     content: {
@@ -182,9 +177,9 @@ export class OrderController {
   })
   async ordersList(
     @param.path.number('id') id: number,
-   @param.filter(Order) filter?: Filter<Order>,
+    @param.filter(Order) filter?: Filter<Order>,
   ): Promise<void> {
-    const result:any =  await this.orderRepository.execute('SELECT `Order`.*,Users.name FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id WHERE `Order`.`userId`="'+id+'"');
+    const result: any = await this.orderRepository.execute('SELECT `Order`.*,Users.name FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id WHERE `Order`.`userId`="' + id + '"');
     return result;
   }
 

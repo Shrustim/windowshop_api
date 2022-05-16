@@ -50,7 +50,7 @@ let Order = class Order extends repository_1.Entity {
         required: true,
     }),
     (0, tslib_1.__metadata)("design:type", Number)
-], Order.prototype, "pincode", void 0);
+], Order.prototype, "pincodeId", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
         type: 'string',
@@ -58,6 +58,24 @@ let Order = class Order extends repository_1.Entity {
     }),
     (0, tslib_1.__metadata)("design:type", String)
 ], Order.prototype, "orderDate", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'number',
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], Order.prototype, "is_active", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'string',
+    }),
+    (0, tslib_1.__metadata)("design:type", String)
+], Order.prototype, "created", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'string',
+    }),
+    (0, tslib_1.__metadata)("design:type", String)
+], Order.prototype, "updated", void 0);
 Order = (0, tslib_1.__decorate)([
     (0, repository_1.model)(),
     (0, tslib_1.__metadata)("design:paramtypes", [Object])

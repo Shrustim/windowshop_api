@@ -36,6 +36,24 @@ let Category = class Category extends repository_1.Entity {
     }),
     (0, tslib_1.__metadata)("design:type", String)
 ], Category.prototype, "description", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'number',
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], Category.prototype, "is_active", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'string',
+    }),
+    (0, tslib_1.__metadata)("design:type", String)
+], Category.prototype, "created", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'string',
+    }),
+    (0, tslib_1.__metadata)("design:type", String)
+], Category.prototype, "updated", void 0);
 Category = (0, tslib_1.__decorate)([
     (0, repository_1.model)(),
     (0, tslib_1.__metadata)("design:paramtypes", [Object])
