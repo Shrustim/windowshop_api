@@ -12,4 +12,5 @@ export declare class ProductController {
     updateById(id: number, product: Product): Promise<void>;
     replaceById(id: number, product: Product): Promise<void>;
     deleteById(id: number): Promise<void>;
+    products_list(filter?: Filter<Product>): Promise<void>;
 }

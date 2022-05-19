@@ -34,6 +34,19 @@ let ProductController = class ProductController {
     async deleteById(id) {
         await this.productRepository.deleteById(id);
     }
+    async products_list(filter) {
+        var result = await this.productRepository.find(filter);
+        var newData = await Promise.all(result.map(async (e, index) => {
+            var resultData = [];
+            resultData = await this.productRepository.execute('SELECT id, productId, unitId, qty, price,discount, totalPrice  FROM `Productprice` WHERE is_active = 1 AND is_show = 1 AND productId = "' + e.id + '"');
+            var a = {
+                ...e,
+                "pricedata": resultData
+            };
+            return a;
+        }));
+        return newData;
+    }
 };
 (0, tslib_1.__decorate)([
     (0, rest_1.post)('/products'),
@@ -155,6 +168,16 @@ let ProductController = class ProductController {
     (0, tslib_1.__metadata)("design:paramtypes", [Number]),
     (0, tslib_1.__metadata)("design:returntype", Promise)
 ], ProductController.prototype, "deleteById", null);
+(0, tslib_1.__decorate)([
+    (0, rest_1.get)('/products-list'),
+    (0, rest_1.response)(200, {
+        description: 'Array of Product model instances'
+    }),
+    (0, tslib_1.__param)(0, rest_1.param.filter(models_1.Product)),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", [Object]),
+    (0, tslib_1.__metadata)("design:returntype", Promise)
+], ProductController.prototype, "products_list", null);
 ProductController = (0, tslib_1.__decorate)([
     (0, tslib_1.__param)(0, (0, repository_1.repository)(repositories_1.ProductRepository)),
     (0, tslib_1.__metadata)("design:paramtypes", [repositories_1.ProductRepository])

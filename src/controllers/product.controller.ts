@@ -4,18 +4,12 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Product} from '../models';
 import {ProductRepository} from '../repositories';
@@ -23,8 +17,8 @@ import {ProductRepository} from '../repositories';
 export class ProductController {
   constructor(
     @repository(ProductRepository)
-    public productRepository : ProductRepository,
-  ) {}
+    public productRepository: ProductRepository,
+  ) { }
 
   @post('/products')
   @response(200, {
@@ -37,7 +31,7 @@ export class ProductController {
         'application/json': {
           schema: getModelSchemaRef(Product, {
             title: 'NewProduct',
-            
+
           }),
         },
       },
@@ -147,4 +141,31 @@ export class ProductController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.productRepository.deleteById(id);
   }
+
+
+  @get('/products-list')
+  @response(200, {
+    description: 'Array of Product model instances'
+  })
+  async products_list(
+    @param.filter(Product) filter?: Filter<Product>,
+  ): Promise<void> {
+    var result: any = await this.productRepository.find(filter);
+
+    var newData: any = await Promise.all(result.map(async (e: any, index: any): Promise<any> => {
+      var resultData: any = [];
+      resultData = await this.productRepository.execute('SELECT id, productId, unitId, qty, price,discount, totalPrice  FROM `Productprice` WHERE is_active = 1 AND is_show = 1 AND productId = "' + e.id + '"');
+      var a = {
+        ...e,
+        "pricedata": resultData
+      };
+      return a;
+    }));
+
+    return newData;
+  }
+
+
+
+
 }

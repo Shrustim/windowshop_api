@@ -70,6 +70,18 @@ let Orderproduct = class Orderproduct extends repository_1.Entity {
 ], Orderproduct.prototype, "discount", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
+        type: 'number'
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], Orderproduct.prototype, "dbPrice", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'number'
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], Orderproduct.prototype, "dbQty", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
         type: 'number',
     }),
     (0, tslib_1.__metadata)("design:type", Number)

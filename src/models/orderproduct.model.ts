@@ -54,6 +54,16 @@ export class Orderproduct extends Entity {
   discount: number;
 
   @property({
+    type: 'number'
+  })
+  dbPrice: number;
+
+  @property({
+    type: 'number'
+  })
+  dbQty: number;
+
+  @property({
     type: 'number',
   })
   is_active?: number;

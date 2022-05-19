@@ -20,14 +20,22 @@ const config = {
   // password: 'clgProDecore@Akki',
   // database: 'clgprodecoredb'
 
+  // name: 'db',
+  // connector: 'mysql',
+  // url: '',
+  // host: 'localhost',
+  // port: 3306,
+  // user: 'root',
+  // password: '',
+  // database: 'loopback4_bekery_api'
   name: 'db',
   connector: 'mysql',
   url: '',
-  host: 'localhost',
+  host: 'www.remotemysql.com',
   port: 3306,
-  user: 'root',
-  password: '',
-  database: 'loopback4_bekery_api'
+  user: '6br4O9SyPX',
+  password: 'BY5gM7x7Tm',
+  database: '6br4O9SyPX'
 };
 
 // Observe application's life cycle to disconnect the datasource when

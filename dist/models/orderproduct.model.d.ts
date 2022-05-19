@@ -9,6 +9,8 @@ export declare class Orderproduct extends Entity {
     price: number;
     unitId: number;
     discount: number;
+    dbPrice: number;
+    dbQty: number;
     is_active?: number;
     created?: string;
     updated?: string;
