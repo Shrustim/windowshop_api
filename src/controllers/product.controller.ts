@@ -154,7 +154,7 @@ export class ProductController {
 
     var newData: any = await Promise.all(result.map(async (e: any, index: any): Promise<any> => {
       var resultData: any = [];
-      resultData = await this.productRepository.execute('SELECT id, productId, unitId, qty, price,discount, totalPrice  FROM `Productprice` WHERE is_active = 1 AND is_show = 1 AND productId = "' + e.id + '"');
+      resultData = await this.productRepository.execute('SELECT Productprice.id, productId, unitId, qty, price,discount, totalPrice ,UnitMaster.name as unitName FROM `Productprice` LEFT OUTER JOIN UnitMaster ON Productprice.unitId = UnitMaster.id WHERE Productprice.is_active = 1 AND Productprice.is_show = 1 AND productId = "' + e.id + '"');
       var a = {
         ...e,
         "pricedata": resultData

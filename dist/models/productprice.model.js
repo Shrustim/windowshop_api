@@ -26,7 +26,6 @@ let Productprice = class Productprice extends repository_1.Entity {
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
         type: 'number',
-        required: true,
     }),
     (0, tslib_1.__metadata)("design:type", Number)
 ], Productprice.prototype, "unitId", void 0);
@@ -40,23 +39,27 @@ let Productprice = class Productprice extends repository_1.Entity {
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
         type: 'number',
-        required: true,
     }),
     (0, tslib_1.__metadata)("design:type", Number)
 ], Productprice.prototype, "price", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
-        type: 'number'
+        type: 'number',
     }),
     (0, tslib_1.__metadata)("design:type", Number)
 ], Productprice.prototype, "discount", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
         type: 'number',
-        required: true,
     }),
     (0, tslib_1.__metadata)("design:type", Number)
 ], Productprice.prototype, "totalPrice", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'number',
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], Productprice.prototype, "is_show", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
         type: 'number',

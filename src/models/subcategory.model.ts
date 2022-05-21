@@ -1,7 +1,7 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class Product extends Entity {
+export class Subcategory extends Entity {
   @property({
     type: 'number',
     id: true,
@@ -13,7 +13,7 @@ export class Product extends Entity {
     type: 'string',
     required: true,
   })
-  productName: string;
+  subCategoryName: string;
 
   @property({
     type: 'number',
@@ -22,35 +22,14 @@ export class Product extends Entity {
   categoryId: number;
 
   @property({
-    type: 'number',
-    required: true,
+    type: 'string',
   })
-  subCategoryId: number;
+  image?: string;
 
   @property({
     type: 'string',
   })
   description?: string;
-
-  @property({
-    type: 'string',
-  })
-  imageone?: string;
-
-  @property({
-    type: 'string',
-  })
-  imagetwo?: string;
-
-  @property({
-    type: 'string',
-  })
-  imagethree?: string;
-
-  @property({
-    type: 'string',
-  })
-  imagefour?: string;
 
   @property({
     type: 'number',
@@ -68,13 +47,13 @@ export class Product extends Entity {
   updated?: string;
 
 
-  constructor(data?: Partial<Product>) {
+  constructor(data?: Partial<Subcategory>) {
     super(data);
   }
 }
 
-export interface ProductRelations {
+export interface SubcategoryRelations {
   // describe navigational properties here
 }
 
-export type ProductWithRelations = Product & ProductRelations;
+export type SubcategoryWithRelations = Subcategory & SubcategoryRelations;

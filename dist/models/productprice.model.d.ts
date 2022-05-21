@@ -2,11 +2,12 @@ import { Entity } from '@loopback/repository';
 export declare class Productprice extends Entity {
     id?: number;
     productId: number;
-    unitId: number;
+    unitId?: number;
     qty: number;
-    price: number;
-    discount: number;
-    totalPrice: number;
+    price?: number;
+    discount?: number;
+    totalPrice?: number;
+    is_show?: number;
     is_active?: number;
     created?: string;
     updated?: string;

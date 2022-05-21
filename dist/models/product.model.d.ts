@@ -3,6 +3,7 @@ export declare class Product extends Entity {
     id?: number;
     productName: string;
     categoryId: number;
+    subCategoryId: number;
     description?: string;
     imageone?: string;
     imagetwo?: string;

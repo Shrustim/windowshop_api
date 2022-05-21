@@ -6,3 +6,5 @@ export * from './orderproduct.model';
 export * from './unit-master.model';
 export * from './pincode.model';
 export * from './productprice.model';
+export * from './productprice.model';
+export * from './subcategory.model';

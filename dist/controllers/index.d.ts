@@ -6,3 +6,5 @@ export * from './order.controller';
 export * from './orderproduct.controller';
 export * from './unit-master.controller';
 export * from './pincode.controller';
+export * from './productprice.controller';
+export * from './subcategory.controller';

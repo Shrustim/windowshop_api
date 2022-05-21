@@ -17,9 +17,8 @@ export class Productprice extends Entity {
 
   @property({
     type: 'number',
-    required: true,
   })
-  unitId: number;
+  unitId?: number;
 
   @property({
     type: 'number',
@@ -29,20 +28,23 @@ export class Productprice extends Entity {
 
   @property({
     type: 'number',
-    required: true,
   })
-  price: number;
-
-  @property({
-    type: 'number'
-  })
-  discount: number;
+  price?: number;
 
   @property({
     type: 'number',
-    required: true,
   })
-  totalPrice: number;
+  discount?: number;
+
+  @property({
+    type: 'number',
+  })
+  totalPrice?: number;
+
+  @property({
+    type: 'number',
+  })
+  is_show?: number;
 
   @property({
     type: 'number',

@@ -5,3 +5,5 @@ export * from './order.repository';
 export * from './orderproduct.repository';
 export * from './unit-master.repository';
 export * from './pincode.repository';
+export * from './productprice.repository';
+export * from './subcategory.repository';

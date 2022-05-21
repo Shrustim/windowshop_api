@@ -38,7 +38,7 @@ let ProductController = class ProductController {
         var result = await this.productRepository.find(filter);
         var newData = await Promise.all(result.map(async (e, index) => {
             var resultData = [];
-            resultData = await this.productRepository.execute('SELECT id, productId, unitId, qty, price,discount, totalPrice  FROM `Productprice` WHERE is_active = 1 AND is_show = 1 AND productId = "' + e.id + '"');
+            resultData = await this.productRepository.execute('SELECT Productprice.id, productId, unitId, qty, price,discount, totalPrice ,UnitMaster.name as unitName FROM `Productprice` LEFT OUTER JOIN UnitMaster ON Productprice.unitId = UnitMaster.id WHERE Productprice.is_active = 1 AND Productprice.is_show = 1 AND productId = "' + e.id + '"');
             var a = {
                 ...e,
                 "pricedata": resultData
