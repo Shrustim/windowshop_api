@@ -159,7 +159,7 @@ export class OrderController {
     @param.path.number('id') id: number,
     @param.filter(Order) filter?: Filter<Order>,
   ): Promise<Order> {
-    const result: any = await this.orderRepository.execute('SELECT `Orderproduct`.*,`Product`.`productName`,`Product`.`imageone` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id WHERE `Orderproduct`.`orderId`="' + id + '"');
+    const result: any = await this.orderRepository.execute('SELECT `Orderproduct`.*, `UnitMaster`.name as unitName ,`Product`.`productName`,`Product`.`imageone` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id INNER JOIN `UnitMaster` ON `Orderproduct`.unitId=`UnitMaster`.id WHERE `Orderproduct`.`orderId`="' + id + '"');
     return result;
   }
 
@@ -179,7 +179,7 @@ export class OrderController {
     @param.path.number('id') id: number,
     @param.filter(Order) filter?: Filter<Order>,
   ): Promise<void> {
-    const result: any = await this.orderRepository.execute('SELECT `Order`.*,Users.name FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id WHERE `Order`.`userId`="' + id + '"');
+    const result: any = await this.orderRepository.execute('SELECT `Order`.*,Pincode.pincodeNo,Users.name,Users.mobileNo FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id LEFT OUTER JOIN `Pincode` ON `Order`.pincodeId=`Pincode`.id  WHERE `Order`.`userId`="' + id + '"');
     return result;
   }
 

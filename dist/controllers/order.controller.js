@@ -36,11 +36,11 @@ let OrderController = class OrderController {
         await this.orderRepository.deleteById(id);
     }
     async ordersById(id, filter) {
-        const result = await this.orderRepository.execute('SELECT `Orderproduct`.*,`Product`.`productName`,`Product`.`imageone` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id WHERE `Orderproduct`.`orderId`="' + id + '"');
+        const result = await this.orderRepository.execute('SELECT `Orderproduct`.*, `UnitMaster`.name as unitName ,`Product`.`productName`,`Product`.`imageone` FROM `Orderproduct` INNER JOIN `Product` ON `Orderproduct`.productId=`Product`.id INNER JOIN `UnitMaster` ON `Orderproduct`.unitId=`UnitMaster`.id WHERE `Orderproduct`.`orderId`="' + id + '"');
         return result;
     }
     async ordersList(id, filter) {
-        const result = await this.orderRepository.execute('SELECT `Order`.*,Users.name FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id WHERE `Order`.`userId`="' + id + '"');
+        const result = await this.orderRepository.execute('SELECT `Order`.*,Pincode.pincodeNo,Users.name,Users.mobileNo FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id LEFT OUTER JOIN `Pincode` ON `Order`.pincodeId=`Pincode`.id  WHERE `Order`.`userId`="' + id + '"');
         return result;
     }
 };
