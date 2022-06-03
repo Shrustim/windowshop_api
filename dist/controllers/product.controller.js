@@ -34,11 +34,41 @@ let ProductController = class ProductController {
     async deleteById(id) {
         await this.productRepository.deleteById(id);
     }
-    async products_list(filter) {
-        var result = await this.productRepository.find(filter);
+    async products_list(dataa) {
+        var query = "SELECT DISTINCT(Product.id), productName, categoryId, subCategoryId, description, imageone, imagetwo, imagethree, imagefour FROM `Product` LEFT JOIN Productprice ON Product.id = Productprice.productId WHERE Product.is_active = 1 AND Productprice.is_show = 1 AND Productprice.is_active = 1";
+        var filter = " ";
+        var filterForProductPrice = " ";
+        // console.log("filter---", dataa)
+        if (dataa) {
+            if (dataa.categoryId && dataa.categoryId > 0) {
+                // console.log("categoryId-----------", dataa.categoryId)
+                filter = filter + " AND categoryId = '" + dataa.categoryId + "'";
+            }
+            if (dataa.subCategoryId && dataa.subCategoryId > 0) {
+                // console.log("subCategoryId-----------", dataa.subCategoryId)
+                filter = filter + " AND subCategoryId = '" + dataa.subCategoryId + "'";
+            }
+            if (dataa.unitId && dataa.unitId > 0) {
+                // console.log("unitId-----------", dataa.unitId);
+                filter = " AND Productprice.unitId = '" + dataa.unitId + "'" + filter;
+            }
+            if (dataa.startPrice && dataa.startPrice > 0 && dataa.endPrice && dataa.endPrice > 0) {
+                // console.log("startPrice-----------", dataa.startPrice)
+                // console.log("endPrice-----------", dataa.endPrice)
+                filter = filter + " AND Productprice.totalPrice BETWEEN " + dataa.startPrice + " AND " + dataa.endPrice + " ";
+                filterForProductPrice = " AND Productprice.totalPrice BETWEEN " + dataa.startPrice + " AND " + dataa.endPrice + " ";
+            }
+            if (dataa.limit && dataa.limit > 0 && dataa.offset >= 0) {
+                // console.log("limit-----------", dataa.limit)
+                // console.log("offset-----------", dataa.offset)
+                filter = filter + "  LIMIT " + dataa.limit + " OFFSET " + dataa.offset + " ";
+            }
+        }
+        // console.log("--------------", filter);
+        var result = await this.productRepository.execute(query + " " + filter);
         var newData = await Promise.all(result.map(async (e, index) => {
             var resultData = [];
-            resultData = await this.productRepository.execute('SELECT Productprice.id, productId, unitId, qty, price,discount, totalPrice ,UnitMaster.name as unitName FROM `Productprice` LEFT OUTER JOIN UnitMaster ON Productprice.unitId = UnitMaster.id WHERE Productprice.is_active = 1 AND Productprice.is_show = 1 AND productId = "' + e.id + '"');
+            resultData = await this.productRepository.execute('SELECT Productprice.id, productId, unitId, qty, price,discount, totalPrice ,UnitMaster.name as unitName FROM `Productprice` LEFT OUTER JOIN UnitMaster ON Productprice.unitId = UnitMaster.id WHERE Productprice.is_active = 1 AND Productprice.is_show = 1 AND productId = "' + e.id + '" ' + filterForProductPrice + '');
             var a = {
                 ...e,
                 "pricedata": resultData
@@ -169,11 +199,29 @@ let ProductController = class ProductController {
     (0, tslib_1.__metadata)("design:returntype", Promise)
 ], ProductController.prototype, "deleteById", null);
 (0, tslib_1.__decorate)([
-    (0, rest_1.get)('/products-list'),
+    (0, rest_1.post)('/products-list'),
     (0, rest_1.response)(200, {
-        description: 'Array of Product model instances'
+        description: 'Array of Product model instances',
+        // content: {'application/json': {schema: Array}},
     }),
-    (0, tslib_1.__param)(0, rest_1.param.filter(models_1.Product)),
+    (0, tslib_1.__param)(0, (0, rest_1.requestBody)({
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object',
+                    properties: {
+                        categoryId: { type: "number" },
+                        subCategoryId: { type: "number" },
+                        unitId: { type: "number" },
+                        startPrice: { type: "number" },
+                        endPrice: { type: "number" },
+                        limit: { type: "number" },
+                        offset: { type: "number" }
+                    },
+                },
+            },
+        },
+    })),
     (0, tslib_1.__metadata)("design:type", Function),
     (0, tslib_1.__metadata)("design:paramtypes", [Object]),
     (0, tslib_1.__metadata)("design:returntype", Promise)

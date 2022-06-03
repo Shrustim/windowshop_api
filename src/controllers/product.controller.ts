@@ -14,7 +14,17 @@ import {
 import {Product} from '../models';
 import {ProductRepository} from '../repositories';
 
+interface ProductFilter {
+  categoryId: number,
+  subCategoryId: number,
+  unitId: any,
+  totalPriceFrom: number,
+  totalPriceTo: number,
+  limit: number,
+  offset: number
+}
 export class ProductController {
+
   constructor(
     @repository(ProductRepository)
     public productRepository: ProductRepository,
@@ -143,18 +153,71 @@ export class ProductController {
   }
 
 
-  @get('/products-list')
+  @post('/products-list')
   @response(200, {
-    description: 'Array of Product model instances'
+    description: 'Array of Product model instances',
+    // content: {'application/json': {schema: Array}},
   })
   async products_list(
-    @param.filter(Product) filter?: Filter<Product>,
-  ): Promise<void> {
-    var result: any = await this.productRepository.find(filter);
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            properties: {
+              categoryId: {type: "number"},
+              subCategoryId: {type: "number"},
+              unitId: {type: "number"},
+              startPrice: {type: "number"},
+              endPrice: {type: "number"},
+              limit: {type: "number"},
+              offset: {type: "number"}
+            },
+          },
+        },
+      },
+    }) dataa: any,
+  ): Promise<any> {
+    var query = "SELECT DISTINCT(Product.id), productName, categoryId, subCategoryId, description, imageone, imagetwo, imagethree, imagefour FROM `Product` LEFT JOIN Productprice ON Product.id = Productprice.productId WHERE Product.is_active = 1 AND Productprice.is_show = 1 AND Productprice.is_active = 1";
+    var filter = " ";
+    var filterForProductPrice = " ";
+    // console.log("filter---", dataa)
+    if (dataa) {
+
+      if (dataa.categoryId && dataa.categoryId > 0) {
+        // console.log("categoryId-----------", dataa.categoryId)
+        filter = filter + " AND categoryId = '" + dataa.categoryId + "'";
+      }
+      if (dataa.subCategoryId && dataa.subCategoryId > 0) {
+        // console.log("subCategoryId-----------", dataa.subCategoryId)
+        filter = filter + " AND subCategoryId = '" + dataa.subCategoryId + "'";
+      }
+
+      if (dataa.unitId && dataa.unitId > 0) {
+        // console.log("unitId-----------", dataa.unitId);
+        filter = " AND Productprice.unitId = '" + dataa.unitId + "'" + filter;
+      }
+      if (dataa.startPrice && dataa.startPrice > 0 && dataa.endPrice && dataa.endPrice > 0) {
+        // console.log("startPrice-----------", dataa.startPrice)
+        // console.log("endPrice-----------", dataa.endPrice)
+        filter = filter + " AND Productprice.totalPrice BETWEEN " + dataa.startPrice + " AND " + dataa.endPrice + " ";
+        filterForProductPrice = " AND Productprice.totalPrice BETWEEN " + dataa.startPrice + " AND " + dataa.endPrice + " ";
+      }
+
+      if (dataa.limit && dataa.limit > 0 && dataa.offset >= 0) {
+        // console.log("limit-----------", dataa.limit)
+        // console.log("offset-----------", dataa.offset)
+        filter = filter + "  LIMIT " + dataa.limit + " OFFSET " + dataa.offset + " ";
+
+      }
+
+    }
+    // console.log("--------------", filter);
+    var result: any = await this.productRepository.execute(query + " " + filter);
 
     var newData: any = await Promise.all(result.map(async (e: any, index: any): Promise<any> => {
       var resultData: any = [];
-      resultData = await this.productRepository.execute('SELECT Productprice.id, productId, unitId, qty, price,discount, totalPrice ,UnitMaster.name as unitName FROM `Productprice` LEFT OUTER JOIN UnitMaster ON Productprice.unitId = UnitMaster.id WHERE Productprice.is_active = 1 AND Productprice.is_show = 1 AND productId = "' + e.id + '"');
+      resultData = await this.productRepository.execute('SELECT Productprice.id, productId, unitId, qty, price,discount, totalPrice ,UnitMaster.name as unitName FROM `Productprice` LEFT OUTER JOIN UnitMaster ON Productprice.unitId = UnitMaster.id WHERE Productprice.is_active = 1 AND Productprice.is_show = 1 AND productId = "' + e.id + '" ' + filterForProductPrice + '');
       var a = {
         ...e,
         "pricedata": resultData
