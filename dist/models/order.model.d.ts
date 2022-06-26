@@ -7,6 +7,7 @@ export declare class Order extends Entity {
     address: string;
     pincodeId: number;
     orderDate: string;
+    status: string;
     is_active?: number;
     created?: string;
     updated?: string;

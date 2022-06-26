@@ -1,4 +1,3 @@
-import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -14,7 +13,7 @@ import {
 } from '@loopback/rest';
 import {Order} from '../models';
 import {OrderRepository} from '../repositories';
-@authenticate('jwt')
+// @authenticate('jwt')
 export class OrderController {
   constructor(
     @repository(OrderRepository)
@@ -179,7 +178,7 @@ export class OrderController {
     @param.path.number('id') id: number,
     @param.filter(Order) filter?: Filter<Order>,
   ): Promise<void> {
-    const result: any = await this.orderRepository.execute('SELECT `Order`.*,Pincode.pincodeNo,Users.name,Users.mobileNo FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id LEFT OUTER JOIN `Pincode` ON `Order`.pincodeId=`Pincode`.id  WHERE `Order`.`userId`="' + id + '"');
+    const result: any = await this.orderRepository.execute('SELECT `Order`.*,Pincode.pincodeNo,Users.name,Users.mobileNo FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id LEFT OUTER JOIN `Pincode` ON `Order`.pincodeId=`Pincode`.id  WHERE `Order`.`userId`="' + id + '" ORDER BY id desc');
     return result;
   }
 

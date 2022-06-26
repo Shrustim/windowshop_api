@@ -46,6 +46,11 @@ export class Order extends Entity {
   orderDate: string;
 
   @property({
+    type: 'string',
+  })
+  status: string;
+
+  @property({
     type: 'number',
   })
   is_active?: number;

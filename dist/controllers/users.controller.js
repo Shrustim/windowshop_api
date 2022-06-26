@@ -19,12 +19,12 @@ let UsersController = class UsersController {
         this.usersRepository = usersRepository;
     }
     async login(users) {
-        // ensure the user exists, and the password is correct
-        //  const user = await this.userService.verifyCredentials(credentials);
-        // convert a User object into a UserProfile object (reduced set of properties)
-        const userProfile = { id: 1, name: "shrushti", mobileNo: "9595959595" }; // this.userService.convertToUserProfile(user);
-        // create a JSON Web Token based on the user profile
-        const token = await this.jwtService.generateToken(userProfile);
+        var token = "";
+        const DATA = await this.usersRepository.execute('SELECT * FROM `Users` WHERE mobileNo = "' + users.mobileNo + '" AND password="' + users.password + '"');
+        if (DATA.length > 0) {
+            const userProfile = DATA[0];
+            token = await this.jwtService.generateToken(userProfile);
+        }
         return { token };
     }
     async create(users) {

@@ -60,13 +60,14 @@ export class UsersController {
       },
     }) users: Users,
   ): Promise<{token: string}> {
-    // ensure the user exists, and the password is correct
-    //  const user = await this.userService.verifyCredentials(credentials);
-    // convert a User object into a UserProfile object (reduced set of properties)
-    const userProfile: any = {id: 1, name: "shrushti", mobileNo: "9595959595"}; // this.userService.convertToUserProfile(user);
 
-    // create a JSON Web Token based on the user profile
-    const token = await this.jwtService.generateToken(userProfile);
+    var token = "";
+    const DATA: any = await this.usersRepository.execute('SELECT * FROM `Users` WHERE mobileNo = "' + users.mobileNo + '" AND password="' + users.password + '"');
+    if (DATA.length > 0) {
+      const userProfile: any = DATA[0];
+      token = await this.jwtService.generateToken(userProfile);
+    }
+
     return {token};
   }
 

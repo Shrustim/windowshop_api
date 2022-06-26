@@ -60,6 +60,12 @@ let Order = class Order extends repository_1.Entity {
 ], Order.prototype, "orderDate", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
+        type: 'string',
+    }),
+    (0, tslib_1.__metadata)("design:type", String)
+], Order.prototype, "status", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
         type: 'number',
     }),
     (0, tslib_1.__metadata)("design:type", Number)
