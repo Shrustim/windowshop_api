@@ -14,4 +14,5 @@ export declare class OrderController {
     deleteById(id: number): Promise<void>;
     ordersById(id: number, filter?: Filter<Order>): Promise<Order>;
     ordersList(id: number, filter?: Filter<Order>): Promise<void>;
+    ordersAllList(filter?: Filter<Order>): Promise<void>;
 }

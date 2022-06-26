@@ -182,6 +182,25 @@ export class OrderController {
     return result;
   }
 
+  @get('/ordersAllList')
+  @response(200, {
+    description: 'Array of Order model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Order, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async ordersAllList(
+    @param.filter(Order) filter?: Filter<Order>,
+  ): Promise<void> {
+    const result: any = await this.orderRepository.execute('SELECT `Order`.*,Pincode.pincodeNo,Users.name,Users.mobileNo FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id LEFT OUTER JOIN `Pincode` ON `Order`.pincodeId=`Pincode`.id   ORDER BY id desc');
+    return result;
+  }
+
 
 
 

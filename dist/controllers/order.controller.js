@@ -43,6 +43,10 @@ let OrderController = class OrderController {
         const result = await this.orderRepository.execute('SELECT `Order`.*,Pincode.pincodeNo,Users.name,Users.mobileNo FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id LEFT OUTER JOIN `Pincode` ON `Order`.pincodeId=`Pincode`.id  WHERE `Order`.`userId`="' + id + '" ORDER BY id desc');
         return result;
     }
+    async ordersAllList(filter) {
+        const result = await this.orderRepository.execute('SELECT `Order`.*,Pincode.pincodeNo,Users.name,Users.mobileNo FROM `Order` INNER JOIN `Users` ON `Order`.userId=`Users`.id LEFT OUTER JOIN `Pincode` ON `Order`.pincodeId=`Pincode`.id   ORDER BY id desc');
+        return result;
+    }
 };
 (0, tslib_1.__decorate)([
     (0, rest_1.post)('/orders'),
@@ -202,6 +206,24 @@ let OrderController = class OrderController {
     (0, tslib_1.__metadata)("design:paramtypes", [Number, Object]),
     (0, tslib_1.__metadata)("design:returntype", Promise)
 ], OrderController.prototype, "ordersList", null);
+(0, tslib_1.__decorate)([
+    (0, rest_1.get)('/ordersAllList'),
+    (0, rest_1.response)(200, {
+        description: 'Array of Order model instances',
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'array',
+                    items: (0, rest_1.getModelSchemaRef)(models_1.Order, { includeRelations: true }),
+                },
+            },
+        },
+    }),
+    (0, tslib_1.__param)(0, rest_1.param.filter(models_1.Order)),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", [Object]),
+    (0, tslib_1.__metadata)("design:returntype", Promise)
+], OrderController.prototype, "ordersAllList", null);
 OrderController = (0, tslib_1.__decorate)([
     (0, tslib_1.__param)(0, (0, repository_1.repository)(repositories_1.OrderRepository)),
     (0, tslib_1.__metadata)("design:paramtypes", [repositories_1.OrderRepository])
