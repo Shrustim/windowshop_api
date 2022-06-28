@@ -4,18 +4,12 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Productprice} from '../models';
 import {ProductpriceRepository} from '../repositories';
@@ -23,8 +17,8 @@ import {ProductpriceRepository} from '../repositories';
 export class ProductpriceController {
   constructor(
     @repository(ProductpriceRepository)
-    public productpriceRepository : ProductpriceRepository,
-  ) {}
+    public productpriceRepository: ProductpriceRepository,
+  ) { }
 
   @post('/productprices')
   @response(200, {
@@ -37,7 +31,7 @@ export class ProductpriceController {
         'application/json': {
           schema: getModelSchemaRef(Productprice, {
             title: 'NewProductprice',
-            
+
           }),
         },
       },
@@ -146,5 +140,25 @@ export class ProductpriceController {
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.productpriceRepository.deleteById(id);
+  }
+
+  @get('/productPriceById/{id}')
+  @response(200, {
+    description: 'Array of Order model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Productprice, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async ordersById(
+    @param.path.number('id') id: number,
+    @param.filter(Productprice) filter?: Filter<Productprice>,
+  ): Promise<Productprice> {
+    const result: any = await this.productpriceRepository.execute('SELECT `Productprice`.*, `UnitMaster`.name as unitName ,`Product`.`productName`,`Product`.`imageone` FROM `Productprice` INNER JOIN `Product` ON `Productprice`.productId=`Product`.id INNER JOIN `UnitMaster` ON `Productprice`.unitId=`UnitMaster`.id WHERE `Productprice`.`productId`="' + id + '"');
+    return result;
   }
 }

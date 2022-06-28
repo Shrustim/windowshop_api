@@ -34,6 +34,10 @@ let ProductpriceController = class ProductpriceController {
     async deleteById(id) {
         await this.productpriceRepository.deleteById(id);
     }
+    async ordersById(id, filter) {
+        const result = await this.productpriceRepository.execute('SELECT `Productprice`.*, `UnitMaster`.name as unitName ,`Product`.`productName`,`Product`.`imageone` FROM `Productprice` INNER JOIN `Product` ON `Productprice`.productId=`Product`.id INNER JOIN `UnitMaster` ON `Productprice`.unitId=`UnitMaster`.id WHERE `Productprice`.`productId`="' + id + '"');
+        return result;
+    }
 };
 (0, tslib_1.__decorate)([
     (0, rest_1.post)('/productprices'),
@@ -155,6 +159,25 @@ let ProductpriceController = class ProductpriceController {
     (0, tslib_1.__metadata)("design:paramtypes", [Number]),
     (0, tslib_1.__metadata)("design:returntype", Promise)
 ], ProductpriceController.prototype, "deleteById", null);
+(0, tslib_1.__decorate)([
+    (0, rest_1.get)('/productPriceById/{id}'),
+    (0, rest_1.response)(200, {
+        description: 'Array of Order model instances',
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'array',
+                    items: (0, rest_1.getModelSchemaRef)(models_1.Productprice, { includeRelations: true }),
+                },
+            },
+        },
+    }),
+    (0, tslib_1.__param)(0, rest_1.param.path.number('id')),
+    (0, tslib_1.__param)(1, rest_1.param.filter(models_1.Productprice)),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", [Number, Object]),
+    (0, tslib_1.__metadata)("design:returntype", Promise)
+], ProductpriceController.prototype, "ordersById", null);
 ProductpriceController = (0, tslib_1.__decorate)([
     (0, tslib_1.__param)(0, (0, repository_1.repository)(repositories_1.ProductpriceRepository)),
     (0, tslib_1.__metadata)("design:paramtypes", [repositories_1.ProductpriceRepository])
