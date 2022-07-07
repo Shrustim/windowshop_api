@@ -141,4 +141,70 @@ export class CategoryController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.categoryRepository.deleteById(id);
   }
+
+  @post('/approvedHook')
+  @response(200, {
+    description: 'approvedHook',
+    // content: {'application/json': {schema: Array}},
+  })
+  async approvedHook(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object'
+          },
+        },
+      },
+    }) dataa: any,
+  ): Promise<any> {
+    console.log("JSON.stringify(dataa)", JSON.stringify(dataa))
+    const result: any = await this.categoryRepository.execute("INSERT INTO Category (categoryName,image) VALUES ('approved " + JSON.stringify(dataa) + "','test')");
+    return dataa;
+  }
+
+  @post('/accountConfirmationHook')
+  @response(200, {
+    description: 'approvedHook',
+    // content: {'application/json': {schema: Array}},
+  })
+  async accountConfirmationHook(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object'
+          },
+        },
+      },
+    }) dataa: any,
+  ): Promise<any> {
+    console.log("JSON.stringify(dataa)", JSON.stringify(dataa))
+    const result: any = await this.categoryRepository.execute("INSERT INTO Category (categoryName,image) VALUES ('accountConfirma " + JSON.stringify(dataa) + "','test')");
+    return dataa;
+  }
+
+  @post('/accountLoadConfirmationHook')
+  @response(200, {
+    description: 'approvedHook',
+    // content: {'application/json': {schema: Array}},
+  })
+  async accountLoadConfirmationHook(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object'
+          },
+        },
+      },
+    }) dataa: any,
+  ): Promise<any> {
+    console.log("JSON.stringify(dataa)", JSON.stringify(dataa))
+    const result: any = await this.categoryRepository.execute("INSERT INTO Category (categoryName,image) VALUES ('accountLoadConfirma " + JSON.stringify(dataa) + "','test')");
+    return dataa;
+  }
+
+
+
 }

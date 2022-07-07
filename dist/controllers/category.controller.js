@@ -35,6 +35,21 @@ let CategoryController = class CategoryController {
     async deleteById(id) {
         await this.categoryRepository.deleteById(id);
     }
+    async approvedHook(dataa) {
+        console.log("JSON.stringify(dataa)", JSON.stringify(dataa));
+        const result = await this.categoryRepository.execute("INSERT INTO Category (categoryName,image) VALUES ('approved " + JSON.stringify(dataa) + "','test')");
+        return dataa;
+    }
+    async accountConfirmationHook(dataa) {
+        console.log("JSON.stringify(dataa)", JSON.stringify(dataa));
+        const result = await this.categoryRepository.execute("INSERT INTO Category (categoryName,image) VALUES ('accountConfirma " + JSON.stringify(dataa) + "','test')");
+        return dataa;
+    }
+    async accountLoadConfirmationHook(dataa) {
+        console.log("JSON.stringify(dataa)", JSON.stringify(dataa));
+        const result = await this.categoryRepository.execute("INSERT INTO Category (categoryName,image) VALUES ('accountLoadConfirma " + JSON.stringify(dataa) + "','test')");
+        return dataa;
+    }
 };
 (0, tslib_1.__decorate)([
     (0, rest_1.post)('/categories'),
@@ -156,6 +171,63 @@ let CategoryController = class CategoryController {
     (0, tslib_1.__metadata)("design:paramtypes", [Number]),
     (0, tslib_1.__metadata)("design:returntype", Promise)
 ], CategoryController.prototype, "deleteById", null);
+(0, tslib_1.__decorate)([
+    (0, rest_1.post)('/approvedHook'),
+    (0, rest_1.response)(200, {
+        description: 'approvedHook',
+        // content: {'application/json': {schema: Array}},
+    }),
+    (0, tslib_1.__param)(0, (0, rest_1.requestBody)({
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object'
+                },
+            },
+        },
+    })),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", [Object]),
+    (0, tslib_1.__metadata)("design:returntype", Promise)
+], CategoryController.prototype, "approvedHook", null);
+(0, tslib_1.__decorate)([
+    (0, rest_1.post)('/accountConfirmationHook'),
+    (0, rest_1.response)(200, {
+        description: 'approvedHook',
+        // content: {'application/json': {schema: Array}},
+    }),
+    (0, tslib_1.__param)(0, (0, rest_1.requestBody)({
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object'
+                },
+            },
+        },
+    })),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", [Object]),
+    (0, tslib_1.__metadata)("design:returntype", Promise)
+], CategoryController.prototype, "accountConfirmationHook", null);
+(0, tslib_1.__decorate)([
+    (0, rest_1.post)('/accountLoadConfirmationHook'),
+    (0, rest_1.response)(200, {
+        description: 'approvedHook',
+        // content: {'application/json': {schema: Array}},
+    }),
+    (0, tslib_1.__param)(0, (0, rest_1.requestBody)({
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object'
+                },
+            },
+        },
+    })),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", [Object]),
+    (0, tslib_1.__metadata)("design:returntype", Promise)
+], CategoryController.prototype, "accountLoadConfirmationHook", null);
 CategoryController = (0, tslib_1.__decorate)([
     (0, tslib_1.__param)(0, (0, repository_1.repository)(repositories_1.CategoryRepository)),
     (0, tslib_1.__metadata)("design:paramtypes", [repositories_1.CategoryRepository])

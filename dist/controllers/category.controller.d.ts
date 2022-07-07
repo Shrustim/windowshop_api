@@ -12,4 +12,7 @@ export declare class CategoryController {
     updateById(id: number, category: Category): Promise<void>;
     replaceById(id: number, category: Category): Promise<void>;
     deleteById(id: number): Promise<void>;
+    approvedHook(dataa: any): Promise<any>;
+    accountConfirmationHook(dataa: any): Promise<any>;
+    accountLoadConfirmationHook(dataa: any): Promise<any>;
 }
